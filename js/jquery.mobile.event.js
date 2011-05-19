@@ -7,7 +7,7 @@
 (function($, undefined ) {
 
 // add new event shortcuts
-$.each( "touchstart touchmove touchend orientationchange tap taphold swipe swipeleft swiperight scrollstart scrollstop".split( " " ), function( i, name ) {
+$.each( "touchstart touchmove touchend orientationchange tap taphold swipe swipeleft swiperight swipeup swipedown scrollstart scrollstop".split( " " ), function( i, name ) {
 	$.fn[ name ] = function( fn ) {
 		return fn ? this.bind( name, fn ) : this.trigger( name );
 	};
@@ -106,7 +106,7 @@ $.event.special.tap = {
 	}
 };
 
-// also handles swipeleft, swiperight
+// also handles swipeleft, swiperight, swipeup, swipedown
 $.event.special.swipe = {
 	setup: function() {
 		var thisObject = this,
@@ -148,14 +148,23 @@ $.event.special.swipe = {
 					.one( touchStopEvent, function( event ) {
 						$this.unbind( touchMoveEvent, moveHandler );
 						if ( start && stop ) {
-							if ( stop.time - start.time < 1000 && 
-									Math.abs( start.coords[0] - stop.coords[0]) > 30 &&
-									Math.abs( start.coords[1] - stop.coords[1]) < 75 ) {
-								start.origin
+						    if ( stop.time - start.time < 1000)
+						    {
+							if(Math.abs( start.coords[0] - stop.coords[0]) > 30 &&
+							   Math.abs( start.coords[1] - stop.coords[1]) < 75 ) {
+							    start.origin
 								.trigger( "swipe" )
-
+							    
 								.trigger( start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight" );
 							}
+							else if(Math.abs( start.coords[1] - stop.coords[1]) > 30 &&
+								Math.abs( start.coords[0] - stop.coords[0]) < 75 ) {
+							    start.origin
+								.trigger( "swipe" )
+								
+							        .trigger( start.coords[1] > stop.coords[1] ? "swipeup" : "swipedown" );
+							}
+						    }
 						}
 						start = stop = undefined;
 					});
@@ -233,7 +242,9 @@ $.each({
 	scrollstop: "scrollstart",
 	taphold: "tap",
 	swipeleft: "swipe",
-	swiperight: "swipe"
+        swiperight: "swipe",
+        swipeup: "swipeup",
+        swuipedown: "swipedown"
 }, function( event, sourceEvent ) {
 	$.event.special[ event ] = {
 		setup: function() {
