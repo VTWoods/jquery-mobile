@@ -100,7 +100,7 @@ $.widget( "mobile.slider", $.mobile.widget, {
 					self.beforeStart = control[0].selectedIndex;
 				}
 				self.refresh( event );
-			        control.trigger('start');
+			        //control.trigger('start');
 				return false;
 			});
 
@@ -123,7 +123,7 @@ $.widget( "mobile.slider", $.mobile.widget, {
 								handle.removeClass("ui-slider-handle-snapping");
 							});
 					}
-				        control.trigger('stop');
+				        //control.trigger('stop');
 					return false;
 				}
 			});
