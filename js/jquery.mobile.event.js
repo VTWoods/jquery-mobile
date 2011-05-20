@@ -151,14 +151,14 @@ $.event.special.swipe = {
 						    if ( stop.time - start.time < 1000)
 						    {
 							if(Math.abs( start.coords[0] - stop.coords[0]) > 30 &&
-							   Math.abs( start.coords[1] - stop.coords[1]) < 75 ) {
+							   Math.abs( start.coords[1] - stop.coords[1]) < 30 ) {
 							    start.origin
 								.trigger( "swipe" )
 							    
 								.trigger( start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight" );
 							}
 							else if(Math.abs( start.coords[1] - stop.coords[1]) > 30 &&
-								Math.abs( start.coords[0] - stop.coords[0]) < 75 ) {
+								Math.abs( start.coords[0] - stop.coords[0]) < 30 ) {
 							    start.origin
 								.trigger( "swipe" )
 								
