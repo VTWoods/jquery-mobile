@@ -81,7 +81,11 @@ $.widget( "mobile.slider", $.mobile.widget, {
 			.keyup(function(){ // necessary?
 				self.refresh( val(), true, true );
 			})
+	                .focus(function(){
+                                control.trigger('start');
+		        })
 			.blur(function(){
+			        control.trigger('stop');
 				self.refresh( val(), true );
 			});
 
